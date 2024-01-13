@@ -45,7 +45,12 @@ function addGamesToPage(games) {
         newDivElement.innerHTML = 
        ` <img class = "game-img" src = ${game.img} ></img>
         <div class = "game-name" ><strong>${game.name}</strong></div>
-        ${game.description}`
+        <div class = "Game-description">
+            ${game.description}
+        </div>
+        <div class = "game-backers">
+           <strong>Backers:</strong> ${game.backers}
+        </div>`
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
 
@@ -72,18 +77,36 @@ const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
 
+let contributionAmount = GAMES_JSON.reduce((accumulator, currentValue) => (currentValue.backers + accumulator),0)
+
+let newContributionAmount = contributionAmount.toLocaleString("en-US")
 
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
-
+contributionsCard.innerHTML = `
+<div>${newContributionAmount}</div>
+`
 
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById("total-raised");
 
-// set inner HTML using template literal
+let pledgedTotalAmt = GAMES_JSON.reduce((accumulator, currentValue) => (currentValue.pledged + accumulator), 0)
 
+let newPledgedTotalAmt = pledgedTotalAmt.toLocaleString("en-US")
+// set inner HTML using template literal
+raisedCard.innerHTML = `
+<div>$${newPledgedTotalAmt}</div>
+`
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
+
+let countOfGames = 0;
+for (let Game in GAMES_JSON)
+    countOfGames += 1
+
+gamesCard.innerHTML = `
+<div>${countOfGames}</div>
+`
 
 
 /*************************************************************************************
@@ -97,7 +120,7 @@ function filterUnfundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have not yet met their goal
-
+    let unFunded = GAMES_JSON.filter(game => game.goal !== game.pledged)
 
     // use the function we previously created to add the unfunded games to the DOM
 

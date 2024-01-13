@@ -40,7 +40,8 @@ body {
 }
 
 #num-contributions, #total-raised, #num-games {
-    font-size: 50px;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 #games-container {
@@ -50,9 +51,18 @@ body {
 }
 
 .game-img {
+    margin: 20px 0;
     width: 100%;
     border-radius: 5px;
     box-shadow: 0 0 10px #FFFFFF;
+}
+
+.game-backers {
+    margin: 20px 0;
+}
+
+.Game-description {
+    margin: 20px 0;
 }
 
 .game-card {
@@ -69,9 +79,6 @@ body {
     box-shadow: 0 0 30px lightblue;
 }
 
-.game-name {
-    margin: 20px 0;
-}
 
 #button-container {
     text-align: center;
