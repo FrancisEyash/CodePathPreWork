@@ -120,11 +120,10 @@ function filterUnfundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have not yet met their goal
-    let unFunded = GAMES_JSON.filter(game => (game.pledged < game.goal))
-    console.log(unFunded)
+    let unFunded = GAMES_JSON.filter(game => (game.pledged < game.goal));
 
     // use the function we previously created to add the unfunded games to the DOM
-    addGamesToPage(unFunded)
+    addGamesToPage(unFunded);
 
 }
 
@@ -135,10 +134,9 @@ function filterFundedOnly() {
     deleteChildElements(gamesContainer);
 
     // use filter() to get a list of games that have met or exceeded their goal
-    let Funded = GAMES_JSON.filter(game => (game.pledged >= game.goal))
-    console.log(Funded)
+    let Funded = GAMES_JSON.filter(game => (game.pledged >= game.goal));
     // use the function we previously created to add unfunded games to the DOM
-    addGamesToPage(Funded)
+    addGamesToPage(Funded);
 }
 
 
@@ -148,7 +146,7 @@ function showAllGames() {
     deleteChildElements(gamesContainer);
 
     // add all games from the JSON data to the DOM
-    addGamesToPage(GAMES_JSON)
+    addGamesToPage(GAMES_JSON);
 
 }
 
@@ -171,12 +169,25 @@ allBtn.addEventListener("click", () => showAllGames());
 const descriptionContainer = document.getElementById("description-container");
 
 // use filter or reduce to count the number of unfunded games
+const numOfUnfunded = GAMES_JSON.reduce((accumulator, game) => {
+    if (game.goal > game.pledged){
+        return accumulator + 1
+    } else {
+        return accumulator
+    }
+}, 0);
 
-
+console.log(numOfUnfunded)
 // create a string that explains the number of unfunded games using the ternary operator
+const showString = `A total of ${newPledgedTotalAmt} has been raised for ${countOfGames} games. Currently, ${numOfUnfunded} ${numOfUnfunded > 1 ? "games" : "game"}
+remains unfunded. We need your help to fund these amazing games!.`
 
+console.log(showString)
 
 // create a new DOM element containing the template string and append it to the description container
+let p_Element = document.createElement("p");
+p_Element.innerHTML = `${showString}`;
+descriptionContainer.appendChild(p_Element);
 
 /************************************************************************************
  * Challenge 7: Select & display the top 2 games
