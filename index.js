@@ -177,12 +177,11 @@ const numOfUnfunded = GAMES_JSON.reduce((accumulator, game) => {
     }
 }, 0);
 
-console.log(numOfUnfunded)
+
 // create a string that explains the number of unfunded games using the ternary operator
 const showString = `A total of ${newPledgedTotalAmt} has been raised for ${countOfGames} games. Currently, ${numOfUnfunded} ${numOfUnfunded > 1 ? "games" : "game"}
 remains unfunded. We need your help to fund these amazing games!.`
 
-console.log(showString)
 
 // create a new DOM element containing the template string and append it to the description container
 let p_Element = document.createElement("p");
@@ -202,7 +201,14 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 });
 
 // use destructuring and the spread operator to grab the first and second games
+const [one, two, ...rest] = sortedGames;
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+let newPelement = document.createElement("p");
+newPelement.innerHTML = `${one.name}`;
+firstGameContainer.appendChild(newPelement);
 
 // do the same for the runner up item
+let newpElement = document.createElement("p");
+newpElement.innerHTML = `${two.name}`;
+secondGameContainer.appendChild(newpElement);
